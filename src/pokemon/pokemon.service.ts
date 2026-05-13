@@ -38,15 +38,6 @@ export class PokemonService {
   async findOne(term: string) {
     let pokemon: Pokemon | null = null;
    
-    // if (isNaN(+term)) {
-    //   if(isValidObjectId( term )){
-    //     pokemon = await this.pokemonModel.findById(term);
-    //   }
-    //   pokemon = await this.pokemonModel.findOne({ name: term.toLowerCase() });
-    // } else {
-    //   pokemon = await this.pokemonModel.findOne({ no: +term });
-    // }
-
 
     if (isNaN(+term)) {
       if (isValidObjectId(term)) {
