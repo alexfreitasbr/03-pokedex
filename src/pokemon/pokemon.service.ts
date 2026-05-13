@@ -49,10 +49,6 @@ export class PokemonService {
       pokemon = await this.pokemonModel.findOne({ no: +term });
     }
 
-
-
-
-
     if (!pokemon) {
       throw new NotFoundException(`Pokemon with term "${term}" not found`);
     }
