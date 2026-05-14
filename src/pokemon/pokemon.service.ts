@@ -2,8 +2,9 @@ import { BadRequestException, Injectable, InternalServerErrorException, NotFound
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
 import { UpdatePokemonDto } from './dto/update-pokemon.dto';
 import { Model, isValidObjectId } from 'mongoose';
-import { Pokemon } from './entities/pokemon.entity';
+import { Pokemon} from './entities/pokemon.entity';
 import { InjectModel } from '@nestjs/mongoose';
+import { PaginationDto } from 'src/common/dto/pagination.dto';
 
 
 
@@ -26,8 +27,10 @@ export class PokemonService {
     }
   }
 
-  findAll() {
-    return `This action returns all pokemon`;
+  async findAll(paginationDto:PaginationDto) {
+    const {limit = 10, skip= 0} =paginationDto
+    const page= (await this.pokemonModel.find().limit(limit).skip(skip).sort({name:1}).select('-__v'));
+    return page;
   }
 
   async findOne(term: string) {
@@ -82,4 +85,5 @@ export class PokemonService {
     console.log(error)
     throw new InternalServerErrorException(`Can't create Pokemon - Check server logs`)
   }
+
 }
